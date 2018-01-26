@@ -11,7 +11,7 @@ html, body {
 
 .main {
     padding: 8px; 
-    max-width: 840px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -32,11 +32,23 @@ html, body {
 
 .game {
     border: 1px solid gray;
+    padding: 20px;
+    /* flex */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.card {
+    max-width: 150px;
+    padding: 4px;
 }
 
 .game .card img {
     border: 1px solid gray;
     border-radius: 24px;
+    width: 100%;
+    height: auto;
 }
 
 
