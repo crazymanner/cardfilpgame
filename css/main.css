@@ -9,3 +9,34 @@ html, body {
     padding: 0;
 }
 
+.main {
+    padding: 8px; 
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.header {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 1px solid gray;
+}
+
+.header h4 {
+    margin: 8px; 
+}
+
+.header ul {
+    margin: 10px;
+}
+
+.game {
+    border: 1px solid gray;
+}
+
+.game .card img {
+    border: 1px solid gray;
+    border-radius: 24px;
+}
+
+
