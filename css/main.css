@@ -16,9 +16,6 @@ html, body {
 }
 
 .header {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     border: 1px solid gray;
 }
 
@@ -30,6 +27,12 @@ html, body {
     margin: 10px;
 }
 
+.header .site_link {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;    
+}
+
 .game {
     border: 1px solid gray;
     padding: 20px;
@@ -39,16 +42,40 @@ html, body {
     justify-content: center;
 }
 
-.card {
-    max-width: 150px;
+.game .card {
+    flex: 0 1 25%;
     padding: 4px;
 }
 
-.game .card img {
+.game .card .deck {
+    position: relative;
+    transform-style: preserve-3d; 
+    transition: all 1s ease-in-out;
+}
+
+.game .card .flip {
+    transform: rotateY(180deg);
+}
+
+.game .card .deck img {
     border: 1px solid gray;
-    border-radius: 24px;
+    border-radius: 24px;    
     width: 100%;
     height: auto;
+    backface-visibility: hidden;
+
 }
+
+.game .card .deck img.front {
+    transform: rotateY(180deg);
+}
+
+.game .card .deck img.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
 
 
