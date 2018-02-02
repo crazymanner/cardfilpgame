@@ -1,34 +1,51 @@
 var lastCardIndex = 0;
 var lastDeck = undefined;
-var changing = false;
+var openCards = [];
+var isAnimation = false;
 
 function cardFlip(e) {
-  if (changing) { return ; }
-
-  if (e.target !== undefined && e.target.dataset.deckId !== undefined) {
-    var deck = document.getElementById(e.target.dataset.deckId);
-    deck.style.transform = 'rotateY(180deg)';
-    // 매칭 처리
-    var imgs = deck.getElementsByClassName('front');
-    var img = imgs[0];
+  if (e.target !== undefined && e.target.dataset.deckId !== undefined && !isAnimation) {
+    // 선택 카드 뒤집기
+    var nowDeckId = e.target.dataset.deckId;
+    var nowDeck = document.getElementById(nowDeckId);
+    if (openCards.includes(nowDeckId)) {
+      return ;
+    }
+    document.getElementById("sound_click").play();
+    nowDeck.style.transform = 'rotateY(180deg)';
+    openCards.push(nowDeckId);
+    // 선택한 카드 인덱스 얻기
+    var img = nowDeck.getElementsByClassName('front')[0];
     var nowCardIndex = img.dataset.cardIndex;
+    // 매칭 처리
     if (lastCardIndex === nowCardIndex) {
-      lastCardIndex = 0;
+      document.getElementById("sound_ok").play();
       lastDeck = undefined;
+      lastCardIndex = 0;
+      if(openCards.length === 16) {
+        var win = document.getElementById('win');
+        win.style.display = 'block';
+        document.getElementById("sound_win").play();
+      }
     } else {
+      // 뒤집어 주기
       if (lastDeck !== undefined) {
-        changing = true;
+        isAnimation = true;
         setTimeout(function() {
-          deck.style.transform = 'rotateY(0deg)';
+          document.getElementById("sound_beep").play();          
+          nowDeck.style.transform = 'rotateY(0deg)';
           lastDeck.style.transform = 'rotateY(0deg)';
-          lastCardIndex = 0;
+          openCards.pop();
+          openCards.pop();
           lastDeck = undefined;
-          changing = false;
+          lastCardIndex = 0;
+          isAnimation = false;
         }, 1000);
       } else {
-        lastCardIndex = nowCardIndex;
-        lastDeck = deck;
-      } 
+        // 최종 카드 저장
+        lastDeck = nowDeck;
+        lastCardIndex = nowCardIndex;        
+      }
     }
   }
 }
@@ -76,7 +93,33 @@ function shuffle() {
   }
 }
 
+function showCards() {
+  var decks = document.getElementsByClassName('deck');
+  for (var i = 0; i < decks.length; i++) {
+    var deck = decks[i];
+    deck.style.transform = 'rotateY(180deg)';
+  }
+  setTimeout(function () {
+    for (var i = 0; i < decks.length; i++) {
+      var deck = decks[i];
+      deck.style.transform = 'rotateY(0deg)';
+    }
+  }, 800);
+}
+
+function replay() {
+  var win = document.getElementById('win');
+  win.style.display = 'none';
+  lastCardIndex = 0;
+  lastDeck = undefined;
+  openCards = [];
+  isAnimation = false;
+  shuffle();
+  showCards();
+}
+
 cardInit();
 deckInit();
 shuffle();
+showCards();
 

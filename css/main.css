@@ -12,7 +12,12 @@ html, body {
 .main {
     padding: 8px; 
     max-width: 800px;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
 }
 
 .header {
@@ -34,11 +39,20 @@ html, body {
 }
 
 .game {
+    position: relative;
     border: 1px solid gray;
     padding: 20px;
+    flex: 0 1 auto;
     /* flex */
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.game .row {
+    flex: 0 1 25%;
+    display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
 }
 
@@ -50,7 +64,7 @@ html, body {
 .game .card .deck {
     position: relative;
     transform-style: preserve-3d; 
-    transition: all 1s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .game .card .flip {
@@ -58,12 +72,14 @@ html, body {
 }
 
 .game .card .deck img {
+    display: block;
     border: 1px solid gray;
-    border-radius: 24px;    
+    border-radius: 24px;
+    margin: 0 auto;
+    max-width: 120px;
     width: 100%;
     height: auto;
     backface-visibility: hidden;
-
 }
 
 .game .card .deck img.front {
@@ -71,11 +87,33 @@ html, body {
 }
 
 .game .card .deck img.back {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
 }
 
+.game .win {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: yellow;
+    padding: 20px;
+    border: 1px solid gray;
+    box-shadow: 7px 6px 5px grey;
+}
 
+.game .win img {
+    display: block;
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px; 
+}
 
 
